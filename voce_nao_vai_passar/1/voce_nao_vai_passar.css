@@ -1,0 +1,131 @@
+#form_login{background:#f7f7f7;color:#333;border-radius: 10px;box-shadow: 10px 10px 5px #888888;}
+
+#form_login_titulo{padding:10px 0px 5px 10px}
+
+#form_login_interno{padding:20px 0px 10px 0px} 
+
+#div_captcha_contato{height:150px}
+
+
+
+#tabela_edicao_de_usuario{width:100%;margin:auto;min-height:400px;}
+
+.img_preview_profile{margin-top:10px;height:256px}
+
+#div_usuario_user, #div_nome_user, #div_identificacao_user, #div_tel_user, 
+#div_cel_user, #div_email_user, #div_logradouro_user, #div_num_residencia_user, 
+#div_cidade_user, #div_bairro_user, #div_cep_user, #div_uf_user, #div_comp_user, 
+#div_senha_user, #div_repete_senha_user{float:left;padding-top:5px}
+
+
+#usuario_user, #nome_user, #identificacao_user, #tel_user, 
+#cel_user, #email_user, #logradouro_user, #num_residencia_user, 
+#cidade_user, #bairro_user, #cep_user, #uf_user, #comp_user, 
+#senha_user, #repete_senha_user{width:98%}
+
+
+@media (max-width: 930px){
+	
+#form_login{margin:0px 10% 10px 10%;width:80%;}
+
+
+#div_usuario_user{width:50%}
+#div_nome_user{width:100%}
+#div_identificacao_user{width:50%}
+#div_tel_user{width:50%}
+#div_cel_user{width:50%}
+#div_email_user{width:70%}
+#div_logradouro_user{width:70%}
+#div_num_residencia_user{width:30%}
+#div_comp_user{width:70%}
+#div_cidade_user{width:30%}
+#div_bairro_user{width:34%}
+#div_cep_user{width:33%}
+#div_uf_user{width:33%}
+#div_senha_user{width:50%}
+#div_repete_senha_user{width:50%}
+}
+
+
+@media (min-width: 931px) and (max-width: 1250px){
+
+#form_login{margin:0px 25% 10px 25%;width:50%;}
+
+#div_usuario_user{width:40%}
+#div_nome_user{width:60%}
+#div_identificacao_user{width:40%}
+#div_tel_user{width:30%}
+#div_cel_user{width:30%}
+#div_email_user{width:40%}
+#div_logradouro_user{width:50%}
+#div_num_residencia_user{width:20%}
+#div_comp_user{width:30%}
+#div_cidade_user{width:25%}
+#div_bairro_user{width:25%}
+#div_cep_user{width:25%}
+#div_uf_user{width:25%}
+#div_senha_user{width:30%}
+#div_repete_senha_user{width:30%}
+}
+
+
+
+@media (min-width: 1250px){
+
+#form_login{margin:0px 30% 10px 30%;width:40%;}
+
+
+#div_usuario_user{width:30%}
+#div_nome_user{width:40%}
+#div_identificacao_user{width:30%}
+#div_tel_user{width:30%}
+#div_cel_user{width:30%}
+#div_email_user{width:40%}
+#div_logradouro_user{width:50%}
+#div_num_residencia_user{width:20%}
+#div_comp_user{width:30%}
+#div_cidade_user{width:25%}
+#div_bairro_user{width:25%}
+#div_cep_user{width:25%}
+#div_uf_user{width:25%}
+#div_senha_user{width:30%}
+#div_repete_senha_user{width:30%}
+}
+
+
+
+
+/**************************************************************/
+
+
+@media (max-height: 400px){
+	
+#form_login{margin-top:10px;height:230px;}
+}
+
+
+@media (min-height: 400px) and (max-height: 600px){
+
+#form_login{margin-top:20px;height:260px;}
+}
+
+
+
+@media (min-height: 600px){
+
+#form_login{margin-top:30px;height:310px;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+
+#div_codigo, #div_nome, #div_descricao, #div_admin, #div_filial{float:left;padding:5px 3% 0px 0px}
+
+#codigo, #nome, #descricao, #filial{width:100%}
+
+#bt_salvar_grupo{width:120px}
+
+#area_acessos{position:relative;width:100%;overflow:auto;max-height:350px}
+
+#tab_acessos{position: relative;width:100%}
+
+#tab_acessos th{background:#000;color:#FFF;font-weight:bold;height:27px}
+
+#tab_acessos td{padding:0px 5px 0px 5px;height:27px}
+
+#bt_salvar_permissoes{width:140px}
+
+.area_lista_usuarios{float:left;overflow:auto;min-height:300px;max-height:300px}
+
+#area_transferir_usuarios{float:left}
+
+#bt_transferir_usuario{width:80%;margin-top:140px}
+
+.tab_lista_usuarios{width:100%}
+
+.tab_lista_usuarios th{background:#000;color:#FFF;height:27px}
+
+.tab_lista_usuarios td{height:27px;padding:0px 10px 0px 10px;border-bottom:solid 1px #EEE}
+
+.bt_remover{width:30px}
+
+#area_ja_add, #area_para_add{border:solid 1px #EEE;width:99%}
+
+
+
+@media (max-width: 930px){
+	
+#div_codigo{width:47%}
+#div_nome{width:97%}
+#div_descricao{width:97%}
+#div_admin{width:47%}
+.acesso_ocultar{display:none}
+.area_lista_usuarios{width:38%}
+#area_transferir_usuarios{width:20%}
+#div_filial{width:47%}
+}
+
+
+@media (min-width: 931px) and (max-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_descricao{width:67%}
+#div_admin{width:47%}
+.area_lista_usuarios{width:39%}
+#area_transferir_usuarios{width:20%}
+#div_filial{width:27%}
+}
+
+
+
+@media (min-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_descricao{width:67%}
+#div_admin{width:47%}
+.area_lista_usuarios{width:39%}
+#area_transferir_usuarios{width:20%}
+#div_filial{width:27%}
+
+}
+
+

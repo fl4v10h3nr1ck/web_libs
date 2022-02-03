@@ -1,0 +1,32 @@
+
+.sombra{display:none;position:absolute;width:100%;left:0;top:0;height:5000px;background:url('imgs/fundo.png') repeat;z-index:999}
+
+.dialogo_div_geral{display:none;position:absolute;z-index:9999;-moz-border-radius:10px;-webkit-border-radius:10px; 
+border-radius:10px;background: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#FFF)) no-repeat;
+background: -moz-linear-gradient(top, #EEE, #FFF); filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#EEE', EndColorStr='#FFF');}
+
+
+.largura_20{width:20%;left:40%}
+.largura_30{width:30%;left:35%}
+.largura_40{width:40%;left:30%}
+.largura_50{width:50%;left:25%}
+.largura_60{width:60%;left:20%}
+.largura_70{width:70%;left:15%}
+.largura_80{width:80%;left:10%}
+.largura_90{width:90%;left:5%}
+
+
+@media (max-width: 700px){
+	.dialogo_div_geral{width:96%;left:2%}
+}
+
+
+@media (max-width: 800px){
+	.dialogo_div_geral{width:94%;left:4%}
+}
+
+
+@media (max-width: 900px){
+	.dialogo_div_geral{width:90%;left:5%}
+}
+

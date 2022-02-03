@@ -1,0 +1,642 @@
+ <?php
+
+if(!isset($_SESSION))
+session_start();
+
+chdir(dirname(__FILE__)); 
+
+chdir('../');
+
+include_once getcwd().'/base/VNVPBase.class.php';
+
+include_once VNVP_PATH_TAB_ABS.'Tabela.class.php';
+include_once VNVP_PATH_DIA_ABS.'Dialogo.class.php';
+
+
+final class Grupos extends VNVPBase{
+
+
+private $tab;
+
+private $dia;
+
+
+
+	function __construct() {
+		
+		parent::__construct();
+		
+		$this->tab= new Tabela();	
+		
+		$this->dia= new Dialogo();
+	}
+
+	
+	
+
+
+	
+	public function dependencias(){
+	
+		echo "
+		
+		<script src='".VNVP_PATH_SMP."grupos/grupos.js' type='text/javascript'></script>
+	
+		<link rel='stylesheet' href='".VNVP_PATH_SMP."grupos/grupos.css' type='text/css' media='all'>";
+	
+		$this->tab->dependencias();
+		
+		$this->dia->dependencias();
+	}
+
+	
+	
+	
+	
+	public function conteudo(){
+
+		$this->tab->setPathABSDoObjeto(VNVP_PATH_ABS."grupos/");
+
+		$this->tab->setFuncaoDuploClick("editarGrupo()");
+		
+		$form = "
+			<table>
+				<tr>
+					<td align='center' class='opcao_vnvp'>
+						<button onclick='javascript:novoGrupo()'>
+							<img src='".VNVP_PATH_SMP."imgs/novo.png' class='bt_vnvp'>
+						</button>
+						<br>Novo
+					</td><td  align='center' class='opcao_vnvp'>
+						<button onclick='javascript:editarGrupo()'>
+							<img src='".VNVP_PATH_SMP."imgs/alterar.png' class='bt_vnvp'>
+						</button>
+						<br>Editar
+					</td><td  align='center' class='opcao_vnvp'>
+						<button onclick='javascript:deletarGrupo()'>
+							<img src='".VNVP_PATH_SMP."imgs/excluir.png' class='bt_vnvp'>
+						</button>
+						<br>Remover
+					</td><td  align='center' class='opcao_vnvp'>
+						<button onclick='javascript:ativarDesativar()'>
+							<img src='".VNVP_PATH_SMP."imgs/ativar.png' class='bt_vnvp'>
+						</button>
+						<br>Ativ./Desativ.
+					</td>
+				</tr>
+			</table>";
+		
+		$form .= $this->tab->getTabela("BeanGrupo", 'tab_grupos');
+		
+		$form .= $this->dia->getForm("", "form_edicao_grupos", "Cadastro de Grupos", 70, 300);
+		
+		echo $form;
+	}
+	
+	
+	
+	
+	
+	
+	public function getForm(){
+	
+		include_once VNVP_PATH_BD_ABS."BdUtil.class.php";
+		include_once VNVP_PATH_ABS.'grupos/BeanGrupo.class.php';
+		include_once VNVP_PATH_BIB_ABS.'Comuns.class.php';
+			
+		$comuns = new Comuns();
+		$bd = new BdUtil();
+		
+		$grupo = $bd->getPrimeiroOuNada(new BeanGrupo(), null, "###.id_grupo=".
+									$comuns->anti_injection($_POST['id_grupo']), null);
+
+		if(!is_object($grupo))
+		$grupo  = new BeanGrupo();
+	
+		$form = "
+				<div id='div_codigo' class='item_form'>
+					Código:<span class='campo_obrigatorio'>*</span><br>
+					<input type='text' id='codigo' value='".$grupo->codigo."'>
+				</div>
+				<div id='div_nome' class='item_form'>
+					Nome:<span class='campo_obrigatorio'>*</span><br>	
+					<input type='text' id='nome' value='".$grupo->nome."'>
+				</div>
+				<div id='div_descricao' class='item_form'>
+					Descrição:
+					<input type='text' id='descricao' value='".$grupo->descricao."'>
+				</div>
+				<div id='div_admin' class='item_form'>
+					Administrador:<span class='campo_obrigatorio'>*</span><br>
+					<input id='check_admin_form_grupo' class='switch switch--shadow' type='checkbox' ".($grupo->admin>0?"checked=true":"")."'>
+					<label for='check_admin_form_grupo'></label>
+				</div>
+				<div style='clear:both'></div>
+				<div align='center'>
+					<div class='vnvp_bt' id='bt_salvar_grupo' onclick='javascript:salvarGrupo(".($grupo->id_grupo>0?$grupo->id_grupo:0).")'>
+						Salvar Grupo
+					</div>	
+					<br><br>
+				</div>";
+	
+	
+		echo '{"resultado":"OK", "msg":"'.$comuns->preparaHTMLParaJson($form).'"}';
+	}
+	
+	
+	
+	
+	
+	
+	public function salvarGrupo(){
+	
+	
+	
+	
+	
+/*	
+	
+	public function getFormDeNovoUsuario($mostrar_profile, 
+											$mostrar_endereco,
+												$cod_grupo_padrao){
+		
+	include_once LOCAL_LIB_BD."BdUtil.class.php";
+	
+	$bd = new BdUtil();
+	
+	$id = 0;
+	
+		if($this->admin){
+		
+		if(array_key_exists("idu", $_GET))
+		$id = $_GET['idu'];
+		}
+		else{
+		
+		$aux =$this->getUsuarioAtual();
+		
+		$id  = $aux!=null?$aux->id:0;
+		}
+	
+	$usuario = null;
+	
+	if($id>0)
+	$usuario = $bd->getPorId(new BeanUsuario(), $id);
+
+	if($usuario==null)
+	$usuario = new BeanUsuario();
+	
+	$url_profile = strlen($usuario->img_profile)>0?$usuario->img_profile:"";
+	
+	$titulo  = ($usuario->id==0?"Cadastro de Novo Usuário":"Dados Cadastrais");		
+	
+	
+	$conteudo = "<table id='tabela_edicao_de_usuario'>
+					<tr>
+						<td width='100%' align='left'>
+						<input type='hidden' id='id_usuario'  value='".$usuario->id."'>
+						<input type='hidden' id='grupo_padrao'  value='".$cod_grupo_padrao."'><br>
+						<p align='center'><b>".$titulo."</b></p><br>
+							<div style='border:solid 1px #DDD;padding:10px' align='left'>
+							<b>Dados do Usuário</b><br>
+								<div id='div_usuario_user'>
+								Nome de Usuário:<span class='campo_obrigatorio'> Obrigatório</span><br>
+								<input type='text' id='usuario_user' value='".$usuario->usuario."'>
+								</div>
+								<div id='div_nome_user'>
+								Nome Completo:<span class='campo_obrigatorio'> Obrigatório</span><br>
+								<input type='text' id='nome_user' value='".$usuario->nome_completo."'>
+								</div>
+								<div id='div_identificacao_user'>
+								Identificação:<br>
+								<input type='text' id='identificacao_user' value='".$usuario->identificacao."'>
+								</div>	
+								<div style='clear:both'></div>	
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width='100%' align='left'>
+							<div style='border:solid 1px #DDD;padding:10px' align='left'>
+							<b>Contato</b><br>
+								<div id='div_tel_user' align='left'>
+								Telefone:<span class='campo_obrigatorio'> Obrigatório</span><br>
+								<input type='text' id='tel_user' value='".$usuario->tel."' maxlength='14' onchange='javascript:mascara(this, formatarTEL);'>
+								</div>
+								<div id='div_cel_user' align='left'>
+								Celular:<br>
+								<input type='text' id='cel_user' value='".$usuario->cel."' maxlength='14' onchange='javascript:mascara(this, formatarTEL);'>
+								</div>
+								<div id='div_email_user' align='left'>
+								E-mail:<span class='campo_obrigatorio'> Obrigatório</span><br>
+								<input type='text' id='email_user' value='".$usuario->email."'>
+								</div>
+								<div style='clear:both'></div>
+							</div>
+						</td>
+					</tr>";
+					
+					
+	if($mostrar_endereco)	
+	$conteudo .= "	<tr>
+						<td width='100%' align='left'>
+							<div style='border:solid 1px #DDD;padding:10px' align='left'>
+							<b>Endereço</b><br>
+								<div id='div_logradouro_user' align='left'>
+								Logradouro:<br>
+								<input type='text' id='logradouro_user' value='".$usuario->logradouro."'>
+								</div>
+								<div id='div_num_residencia_user' align='left'>
+								Número:<br>
+								<input type='text' id='num_user' value='".$usuario->num_residencia."'>
+								</div>
+								<div id='div_comp_user' align='left'>
+								Complemento:<br>
+								<input type='text' id='comp_user' value='".$usuario->complemento."'>
+								</div>
+								<div id='div_cidade_user' align='left'>
+								Cidade:<br>
+								<input type='text' id='cidade_user' value='".$usuario->cidade."'>
+								</div>
+								<div id='div_bairro_user' align='left'>
+								Bairro:<br>
+								<input type='text' id='bairro_user' value='".$usuario->bairro."'>
+								</div>
+								<div id='div_cep_user' align='left'>
+								CEP:<br>
+								<input type='text' id='cep_user' value='".$usuario->cep."' onchange='javascript:mascara(this, formatarCEP);'  maxlength='9'>
+								</div>
+								<div id='div_uf_user' align='left'>
+								UF:<br>
+								<input type='text' id='uf_user' value='".$usuario->uf."' maxlength='2'>
+								</div>
+								<div style='clear:both'></div>
+							</div>
+						</td>
+					</tr>";
+					
+	$conteudo .= "	<tr>
+						<td width='100%' align='left'>
+							<div style='border:solid 1px #DDD;padding:10px' align='left'>";
+	
+	if($usuario->id>0)						
+	 $conteudo .= "			<input type='checkbox' id='trocar_senha' onChange='javascript:trocarSenha()'> Trocar Senha.<br>";
+								
+								
+	$conteudo .= "								
+								<div id='div_senha_user' align='left'>
+								Senha:<br>
+								<input type='password' id='senha_user' value=''>
+								</div>
+								<div id='div_repete_senha_user' align='left'>
+								Repita a Senha:<br>
+								<input type='password' id='repete_senha_user' value=''>
+								</div>
+								<div style='clear:both'></div>";
+								
+	if($usuario->id==0)									
+	$conteudo .= "							
+								
+								<div id='div_captcha_contato' align='center'>
+								<br>
+								<div class='g-recaptcha' data-sitekey='".VNVP_RECAPTCHA_SITE_KEY."'></div>
+								</div>";
+	
+	
+	$conteudo .= "							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width='100%' align='center'>
+						<br>
+							<div class='bt_verde' id='bt_salva_user' onclick='javascript:salvaDadosDeUsuario(".($usuario->id>0?$usuario->id:0).")' style='width:150px'>Salvar Usuário</div>						
+							".$this->getPath()."	
+						</td>
+					</tr>";
+	
+	
+	if($mostrar_profile)
+	$conteudo .= "	<tr>
+						<td align='left'>
+							<div style='border:solid 1px #DDD;padding:10px' align='center'>".
+							$this->img_gestor->getFormDeUpload(
+									"upf", 
+									"Foto de Perfil", 
+									VNVP_LOCAL_PROFILES_SMP_USER,
+									VNVP_LOCAL_PROFILES_ABS_USER,
+									$usuario->img_profile, 
+									100, 
+									120, 
+									120,
+									1,
+									256,
+									"validaAntesDeEnviarUpload",
+									"uploadComSucesso").		
+							"</div>
+						</td>
+					</tr>";				
+								
+					
+	$conteudo .= "
+				</table>";
+						
+	echo $conteudo;		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public function salvaDadosDeUsuario(){
+	
+	include_once LOCAL_LIB_BD."BdUtil.class.php";
+	include_once VNVP_LOCAL_ABS_BIB."Biblioteca.class.php";
+	
+	$bib = new Biblioteca();
+	$bd = new BdUtil();
+	
+	$erros = self::validaUsuario($bd, $bib);
+	
+		if(strlen($erros) == 0){
+
+		$usuario = null;
+	
+		if($_POST['id_usuario']>0)
+		$usuario = $bd->getPorId(new BeanUsuario(), $_POST['id_usuario']);
+			
+				
+		if($usuario==null)
+		$usuario = new BeanUsuario();
+			
+
+		$usuario->usuario  =  		$_POST['usuario'];
+		$usuario->identificacao = 	$_POST['identificacao'];
+		$usuario->nome_completo = 	$_POST['nome'];
+		
+		
+		$usuario->tel= 				$_POST['tel'];
+		$usuario->cel= 				$_POST['cel'];
+		$usuario->email= 			$_POST['email'];
+		
+		
+		$usuario->logradouro=   	$_POST['logradouro'];
+		$usuario->num_residencia=  	$_POST['num'];
+		$usuario->bairro= 			$_POST['bairro'];
+		$usuario->cidade= 			$_POST['cidade'];
+		$usuario->cep= 				$_POST['cep'];
+		$usuario->uf=  				$_POST['uf'];
+		$usuario->complemento=  	$_POST['complemento'];
+
+			if($usuario->id<=0){
+			
+			$usuario->status 		= 1;
+			$usuario->data_cadastro = date("Y-m-d");
+			$usuario->senha 		=hash('sha256', $_POST['senha']);
+			
+		
+			$usuario->id = $bd->novo($usuario);
+			
+				if($usuario->id<=0){
+					
+				echo '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente (COD '.$retorno.')."}';
+				return;
+				}
+				
+				if(strlen($_POST['grupo_padrao'])>0){
+					
+				$grupo = $bd->getPrimeiroOuNada(new BeanGrupo(), null, "###.cod='".$_POST['grupo_padrao']."'", null);
+
+					if($grupo!=null){
+						
+					$x = new BeanUsuarioGrupo();
+					
+					$x->fk_usuario = $usuario->id;
+					$x->fk_grupo  = $grupo->id_grupo;
+
+					$bd->novo($x);
+					}
+				}		
+				
+			}
+			else{
+			
+			if(strlen($_POST['senha'])>0)
+			$usuario->senha 		=hash('sha256', $_POST['senha']);
+			
+				if(!$bd->altera($usuario)){
+			
+				echo '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente."}';
+				return;
+				}
+			}
+			
+		
+		echo '{"resultado":"OK", "id":'.$usuario->id.'}';	
+		return;
+		}
+				
+		
+	echo '{"resultado":"ERRO", "erro":"'.$erros.'"}';
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	
+	public function validaUsuario(&$bd, &$bib){
+	
+
+	$_POST['usuario'] 			= $bib->anti_injection($_POST['usuario']);
+	$_POST['identificacao'] 	= $bib->anti_injection($_POST['identificacao']);
+	$_POST['nome'] 				= $bib->anti_injection($_POST['nome']);
+		
+	$_POST['tel'] 				= $bib->anti_injection($_POST['tel']);
+	$_POST['cel'] 				= $bib->anti_injection($_POST['cel']);
+	$_POST['email'] 			= $bib->anti_injection($_POST['email']);
+		
+	$_POST['logradouro'] 		= $bib->anti_injection($_POST['logradouro']);
+	$_POST['num'] 				= $bib->anti_injection($_POST['num']);
+	$_POST['bairro'] 			= $bib->anti_injection($_POST['bairro']);
+	$_POST['cidade'] 			= $bib->anti_injection($_POST['cidade']);
+	$_POST['cep'] 				= $bib->anti_injection($_POST['cep']);
+	$_POST['uf'] 				= $bib->anti_injection($_POST['uf']);
+	$_POST['complemento'] 		= $bib->anti_injection($_POST['complemento']);
+	$_POST['senha'] 			= $bib->anti_injection($_POST['senha']);
+	
+	
+	
+	if(strlen($_POST['usuario']) == 0)
+	return "Informe um nome de usuário.";
+	
+	
+	$reg = $bd->getPrimeiroOuNada(new BeanUsuario(), 
+										null, 
+											"###.usuario='".$_POST['usuario']."'".($_POST['id_usuario']>0?" and id_usuario<>".$_POST['id_usuario']:""),
+											null);
+	
+	if($reg!=null)
+	return "O nome de usuário informado já está sendo usado por outro usuário.";
+	
+	
+
+	if(strlen($_POST['nome']) == 0)
+	return "Informe seu nome completo.";
+	
+	if( !$bib->validaTEL(substr($_POST['tel'], 1, 2), substr($_POST['tel'], 4), ""))
+	return "Informe um número de telefone válido.";
+	
+	
+		if(strlen($_POST['cel']) > 0){	
+			
+		if( !$bib->validaTEL(substr($_POST['cel'], 1, 2), substr($_POST['cel'], 4), ""))
+		return "Informe um número de celular válido.";
+		}
+		
+	if(!$bib->validaEmail($_POST['email']))
+	return "informe um endereço de E-mail válido.";
+	
+		
+	
+
+	if($_POST['id_usuario']==0 && strlen($_POST['senha'])==0)
+	return "Informe uma senha para o usuario.";
+		
+	
+		if(strlen($_POST['senha'])>0){
+		
+		
+		if(strlen($_POST['senha'])<6)
+		return "A senha deve ter ao menos 6 dígitos.";
+		
+		if(strcmp($_POST['senha'], $_POST['repete_senha'])!=0)
+		return "As senhas informadas não batem.";
+		}
+	
+	
+		if($_POST['id_usuario']==0){
+	
+		if(!array_key_exists("captcha", $_POST) || 
+			strlen($_POST["captcha"])==0)
+		return "Marque a opção NÃO SOU UM ROBÔ.";
+	
+		$vetParametros = array (
+		"secret" => VNVP_RECAPTCHA_SECRET_KEY,
+		"response" => $_POST["captcha"],
+		"remoteip" => $_SERVER["REMOTE_ADDR"]);
+
+		$curlReCaptcha = curl_init();
+		curl_setopt($curlReCaptcha, CURLOPT_URL,"https://www.google.com/recaptcha/api/siteverify");
+		curl_setopt($curlReCaptcha, CURLOPT_POST, true);
+		curl_setopt($curlReCaptcha, CURLOPT_POSTFIELDS, http_build_query($vetParametros));
+		curl_setopt($curlReCaptcha, CURLOPT_RETURNTRANSFER, true);
+
+		$vetResposta = json_decode(curl_exec($curlReCaptcha), true);
+		
+		curl_close($curlReCaptcha);
+		
+		if ($vetResposta["success"])
+		return "";
+	
+		return "Marque a opção NÃO SOU UM ROBÔ."."secret ".VNVP_RECAPTCHA_SECRET_KEY;
+		}
+
+	return "";
+	}
+
+
+	
+	
+	
+	
+	
+	
+	public function salvaImgProfile(){
+	
+	include_once LOCAL_LIB_BD."BdUtil.class.php";
+	
+	$bd = new BdUtil();
+
+	$usuario = $bd->getPorId(new BeanUsuario(), $_POST['id_usuario']);
+
+		if($usuario!=null){
+			
+		$usuario->img_profile = $_POST['url_img'];
+	
+			if(!$bd->altera($usuario)){
+			
+			echo '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente."}';
+			return;
+			}
+		
+		echo '{"resultado":"OK"}';	
+		return;
+		}
+	
+	echo '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente."}';		
+	}
+	
+
+	
+	
+	
+	
+	
+	public function ativarDesativar($id, $echo=true){
+			
+	include_once LOCAL_LIB_BD."BdUtil.class.php";
+	
+	$bd = new BdUtil();
+	
+	$usuario = null;
+
+		if($id>0){
+		
+		$usuario = $bd->getPorId(new BeanUsuario(), $id);
+				
+			if($usuario!=null){
+			
+			
+			if($usuario->status>0)
+			$usuario->status = 0;
+			else
+			$usuario->status = 1;
+			
+				if($bd->altera($usuario)){
+			
+					if($echo){
+					echo '{"resultado":"OK"}';
+					return;
+					}
+					else
+					return '{"resultado":"OK"}';
+				}
+			}
+		}
+		
+		if($echo){		
+		echo '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente."}';
+		return;
+		}
+		else
+		return '{"resultado":"ERRO", "erro":"Falha na gravação, por favor, tente novamente."}';
+	}
+	
+	
+	
+	
+	
+	
+	
+
+*/
+}
+
+?>

@@ -1,0 +1,76 @@
+.tab_local{width:100%}
+
+.tab_area_pesquisa{width:100%;margin-bottom:5px}
+
+.tab_area_pesquisa .area_termo_pesquisa{float:left;}
+
+.tab_area_pesquisa .area_local_pesquisa{float:left;}
+
+.tab_area_pesquisa .area_bt_pesquisar{float:left;}
+
+.tab_bt{width:90%;background:#00540B;margin-top:15px;margin-bottom:2px;padding:5px;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;height:18px;text-align:center;color:#FFF;font-weight:bold;box-shadow: 2px 2px 2px #888888;}
+
+.tab_bt:hover{background:#0A890B;cursor:pointer}
+
+
+
+.area_tab_geral{width:100%;position:relative}
+
+.tab_carregamento{position:absolute;top:100px;left:50%;display:none}
+
+.area_conteudo_tab{position:relative;width:100%;overflow-x: auto;overflow-y: hidden;}
+
+.tab_conteudo{position: relative;width:100%}
+
+.tab_conteudo th{background:#000;color:#FFF;font-weight:bold}
+
+.tab_conteudo td{padding:0px 5px 0px 5px}
+
+.paginacao{width:100%;background:#000;color:#FFF}
+
+.em_destaque{font-weight:bold;color:blue}
+
+
+
+.tab_area_pesquisa .data_termos{width:40%}
+
+.pesquisa_data{display:none}
+
+@media (max-width: 800px){
+
+.tab_area_pesquisa .area_termo_pesquisa{margin-left:1%;width:50%;}
+
+.tab_area_pesquisa .area_local_pesquisa{margin-left:1%;width:46%;}
+
+.tab_area_pesquisa .area_bt_pesquisar{width:40%;padding-left:5px}
+
+.tab_area_pesquisa .tab_termos{width:94%}
+}
+
+
+@media (min-width: 801px) AND (max-width: 1024px){
+
+.tab_area_pesquisa .area_termo_pesquisa{margin-left:1%;width:40%;}
+
+.tab_area_pesquisa .area_local_pesquisa{margin-left:1%;width:35%;}
+
+.tab_area_pesquisa .area_bt_pesquisar{width:18%;padding-left:10px}
+
+.tab_area_pesquisa .tab_termos{width:96%}
+}
+
+
+@media (min-width: 1025px){
+
+.tab_area_pesquisa .area_termo_pesquisa{margin-left:1%;width:50%;}
+
+.tab_area_pesquisa .area_local_pesquisa{margin-left:1%;width:30%;}
+
+.tab_area_pesquisa .area_bt_pesquisar{width:13%;padding-left:10px}
+
+.tab_area_pesquisa .tab_termos{width:98%}
+}
+
+
+
+

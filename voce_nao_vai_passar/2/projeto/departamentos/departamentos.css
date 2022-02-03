@@ -1,0 +1,34 @@
+
+#div_codigo, #div_nome, #div_filial{float:left;padding:5px 3% 0px 0px}
+
+#codigo, #nome, #filial{width:100%}
+
+#bt_salvar_departamento{width:150px}
+
+
+
+@media (max-width: 930px){
+	
+#div_codigo{width:47%}
+#div_nome{width:97%}
+#div_filial{width:47%}
+}
+
+
+@media (min-width: 931px) and (max-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_filial{width:28%}
+}
+
+
+
+@media (min-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_filial{width:28%}
+}
+
+

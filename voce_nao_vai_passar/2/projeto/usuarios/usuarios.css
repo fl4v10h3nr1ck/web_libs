@@ -1,0 +1,101 @@
+
+#div_usuario, #div_nome, #div_email, #div_tel, #div_cel, 
+#div_filial, #div_senha, #div_repete_senha{float:left;padding:5px 3% 0px 0px}
+
+#usuario, #nome, #email, #tel, #cel, #filial, #senha, #repete_senha, #filial_cargo, #departamento_cargo, 
+#cargo_cargo, #usuario_de, #usuario_para{width:100%}
+
+#bt_salvar_usuario{width:120px}
+
+.area_lista_filiais{float:left;overflow:auto;min-height:300px;max-height:300px}
+
+#area_transferir_filiais{float:left}
+
+#bt_transferir_filial{width:80%;margin-top:140px}
+
+.tab_lista{width:100%}
+
+.tab_lista th{background:#000;color:#FFF;height:27px}
+
+.tab_lista td{height:27px;padding:0px 10px 0px 10px;border-bottom:solid 1px #EEE}
+
+.bt_remover{width:30px}
+
+#area_ja_add, #area_para_add{border:solid 1px #EEE;width:99%}
+
+#bt_add_cargo{width:150px}
+
+#div_area_cargos_adds{overflow:auto;min-height:220px;max-height:220px}
+
+#bt_clonar{width:100px}
+
+
+@media (max-width: 800px){
+	
+#div_usuario{width:47%}
+#div_nome{width:97%}
+#div_email{width:97%}
+#div_tel{width:47%}
+#div_cel{width:47%}
+#div_filial{width:97%}
+#div_senha{width:47%}
+#div_repete_senha{width:47%}
+
+.area_lista_filiais{width:38%}
+#area_transferir_filiais{width:20%}
+
+#div_filiais_cargo{width:97%}
+#div_departamentos_cargo{width:97%} 
+#div_cargos_cargo{width:97%}
+
+#div_clonar{width:100%}
+}
+
+
+@media (min-width: 801px) and (max-width: 1250px){
+	
+#div_usuario{width:31%}
+#div_nome{width:63%}
+#div_tel{width:47%}
+#div_cel{width:47%}
+#div_email{width:47%}
+#div_filial{width:47%}
+#div_senha{width:47%}
+#div_repete_senha{width:47%}
+
+.area_lista_filiais{width:39%}
+#area_transferir_filiais{width:20%}
+
+#div_filiais_cargo{width:30%}
+#div_departamentos_cargo{width:31%} 
+#div_cargos_cargo{width:30%}
+
+
+#div_clonar{width:70%}
+}
+
+
+
+@media (min-width: 1251px){
+	
+#div_usuario{width:31%}
+#div_nome{width:63%}
+#div_email{width:31%}
+#div_tel{width:30%}
+#div_cel{width:30%}
+#div_filial{width:31%}
+#div_senha{width:30%}
+#div_repete_senha{width:30%}
+
+.area_lista_filiais{width:39%}
+#area_transferir_filiais{width:20%}
+
+#div_filiais_cargo{width:30%}
+#div_departamentos_cargo{width:31%} 
+#div_cargos_cargo{width:30%}
+
+
+#div_clonar{width:60%}
+}
+
+

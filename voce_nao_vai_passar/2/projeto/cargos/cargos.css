@@ -1,0 +1,37 @@
+
+#div_codigo, #div_nome, #div_departamento, #div_filial{float:left;padding:5px 3% 0px 0px}
+
+#codigo, #nome, #departamento, #filial{width:100%}
+
+#bt_salvar_cargo{width:120px}
+
+
+
+@media (max-width: 930px){
+	
+#div_codigo{width:47%}
+#div_nome{width:97%}
+#div_filial{width:47%}
+#div_departamento{width:47%}
+}
+
+
+@media (min-width: 931px) and (max-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_filial{width:27%}
+#div_departamento{width:27%}
+}
+
+
+
+@media (min-width: 1250px){
+
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_filial{width:27%}
+#div_departamento{width:27%}
+}
+
+

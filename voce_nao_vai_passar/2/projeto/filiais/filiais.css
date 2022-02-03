@@ -1,0 +1,48 @@
+
+#div_codigo, #div_nome, #div_endereco, #div_endereco, #div_tel_1, 
+#div_tel_2, #div_email, #div_site{float:left;padding:5px 3% 0px 0px}
+
+#codigo, #nome, #endereco, #tel_1, #tel_2, #email, #site{width:100%}
+
+#bt_salvar_filial{width:120px}
+
+
+
+
+@media (max-width: 800px){
+	
+#div_codigo{width:27%}
+#div_nome{width:67%}
+#div_endereco{width:97%}
+#div_tel_1{width:47%}
+#div_tel_2{width:47%}
+#div_email{width:47%}
+#div_site{width:47%}
+}
+
+
+@media (min-width: 801px) and (max-width: 1250px){
+
+#div_codigo{width:37%}
+#div_nome{width:57%}
+#div_endereco{width:97%}
+#div_tel_1{width:47%}
+#div_tel_2{width:47%}
+#div_email{width:47%}
+#div_site{width:47%}
+}
+
+
+
+@media (min-width: 1251px){
+
+#div_codigo{width:37%}
+#div_nome{width:57%}
+#div_endereco{width:97%}
+#div_tel_1{width:22%}
+#div_tel_2{width:22%}
+#div_email{width:22%}
+#div_site{width:22%}
+}
+
+

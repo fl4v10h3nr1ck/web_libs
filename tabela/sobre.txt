@@ -1,0 +1,170 @@
+
+- ultima atualizacao v1 em 12/05/2017 -- add paginacao
+
+- ultima atualizacao v2 em 30/06/2017 -- add funcao setFuncaoDuploClick
+
+
+
+- ultima atualizacao v3 em 31/10/2018 -- opcao ao voltar nao perder os dados de pesquisa (restaurar os dados)
+
+
+- ultima atualizacao v4 em 08/07/2019 -- usa versao 2 do bd, adiciona a anotacao pesquisar_null_ou_vazio
+
+
+
+
+/*******************************************************/
+funcoes php:
+/*******************************************************/
+
+
+
+dependencias() 
+-carregas as dependencias da lib
+
+
+	
+setPathABSDoObjeto($path)
+- seta o caminho absoluto do objeto relacionado a tabela (deve ser invocado antes de getTabela)	
+	
+	
+	
+setWhereFixo($where)
+- seta o where de pesquisa fixo (deve ser invocado antes de getTabela)	
+	
+	
+	
+	
+setOrderByFixo($orderby)
+- seta o orderby de pesquisa fixo (deve ser invocado antes de getTabela)	
+	
+	
+	
+setFuncaoPosSelecionar($funcao)
+- recebe o nome de uma funcao js que será chamada sempre que uma linha for selecionada	
+	
+	
+	
+setFuncaoPosPesquisar($funcao)
+- recebe o nome de uma funcao js que será chamada sempre que um pesquisa for realizada
+
+	
+	
+setFuncaoWhereDinamica($funcao)
+- recebe o nome de uma funcao js que deve retorna uma where valida, essa where será concatenada na query antes da qualquer pesquisa.
+	
+	
+	
+setFuncaoOrderByDinamica($funcao)
+- recebe o nome de uma funcao js que deve retorna um orderby valida, essa orderby será concatenada na query antes da qualquer pesquisa.
+	
+
+setFuncaoDuploClick($funcao)
+- recebe o nome de uma funcao js que será chamada quando houver um duplo clique numa linha da tabela.
+	
+	
+setMostrarOpcoesDePesquisa($mostrar = true)
+- se false nao será mostrado as opcoes de pesquisa (termo e busca).
+	
+	
+
+	
+getTabela($objeto, $nome_campo_id)
+- constroi a tabela inicial e exibi na tela, o parametro id identifica a tabela deve ser unica para cada tabela.
+	
+	
+	
+pesquisar($id_tab)
+- realiza a pesquisa na tabela que contenha o id informado.	
+
+
+
+setNumMaxDeLinhas($num_max = 25)
+- defini o numero maximo de linha por página (que serão mostradas por vez).	
+
+
+setMostrarPaginacao($mostrar_paginacao = true)
+- se false nao será mostrado as opcoes de paginacao (se false o valor de setNumMaxDeLinhas será ignorado, todo o resultado de cada pesquisa será mostrado de uma vez (deve-se tratar limites nas opcoes de orderby)).
+
+
+
+
+
+
+/*******************************************************/
+funcoes js:
+/*******************************************************/
+
+
+
+pesquisar(id_tab)
+- realiza a pesquisa na tabela que contenha o id informado.	
+	
+
+	
+getIdSelecionado(id_tab)
+- retorna o id do objeto referente a linha da tabela selecionada.
+
+
+
+getLinhaSelecionada(id_tab)
+- retorna os valores da linha selecionada em forma de array.
+
+
+
+
+limpaTabela(id_tab)
+- remove todas as linhas da tabela.
+
+
+
+	
+/*******************************************************/	
+estilo css na tabela
+/*******************************************************/
+
+
+
+- toda tabela criada possui duas classes css que sao:
+
+NOMEDOCAMPOID_div = para a area da tabela div container geral
+NOMEDOCAMPOID_tab = para a tabela em si (tag table)
+
+- a partir dessas duas classes css é possivel alterar quase todos os atributos css da tabela.
+
+
+
+
+
+
+/*******************************************************/	
+anotacoes
+/*******************************************************/
+
+
+
+
+- os atributos de classe que corresponderão a uma coluna da tabela deverão se anotados com "@AnotColuna"
+
+
+rotulo
+- tipo string - será o valor do cabeçalho da coluna
+
+
+posicao
+- tipo int - a posicao horizontal da coluna na tabela 1 para n, sendo 1 a mais a esquerda
+
+comprimento
+- tipo int - o comprimento do campo em relacao a tabela (proporcao), varia em 1 e 100.
+
+func_composicao
+- tipo string - nome da funcao php que deve ser invocada em vez de chamar o valor do atributo diretamente (serve para formatacao previa do campo) (a funcao deve está definida no proprio bean) (a funcao de ser public e retornar valor).
+
+
+alinhamento
+- tipo string - estipula o alinhamento do conteudo em relacao a celula pode ser CENTER LEFT RIGHT.
+
+nao_pesquisar
+- tipo boolean - retira o campo do filtro de busca na opcoes de pesquisa (todo campo é pesquisavel por padrao).
+
+	
